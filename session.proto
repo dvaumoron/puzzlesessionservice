@@ -23,18 +23,18 @@ package puzzlesessionservice;
 
 // The session service definition.
 service Session {
-  // generate sessionId
-  rpc Generate (SessionInfo) returns (SessionId);
-  rpc GetSessionInfo(SessionId) returns (SessionInfo);
-  rpc UpdateSessionInfo(SessionUpdate) returns (SessionError);
+    // generate sessionId
+    rpc Generate (SessionInfo) returns (SessionId);
+    rpc GetSessionInfo(SessionId) returns (SessionInfo);
+    rpc UpdateSessionInfo(SessionUpdate) returns (SessionError);
 }
 
 message SessionId {
-  uint64 id = 1;
+    uint64 id = 1;
 }
 
 message SessionInfo {
-  map<string, string> info = 1;
+    map<string, string> info = 1;
 }
 
 message SessionUpdate {
