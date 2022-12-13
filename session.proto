@@ -38,8 +38,8 @@ message SessionInfo {
 }
 
 message SessionUpdate {
-    SessionId id = 1;
-    SessionInfo info = 2;
+    uint64 id = 1;
+    map<string, string> info = 2;
 }
 
 message SessionError {
