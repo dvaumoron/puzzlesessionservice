@@ -25,7 +25,7 @@ type SessionClient interface {
 	// generate sessionId
 	Generate(ctx context.Context, in *SessionInfo, opts ...grpc.CallOption) (*SessionId, error)
 	GetSessionInfo(ctx context.Context, in *SessionId, opts ...grpc.CallOption) (*SessionInfo, error)
-	UpdateSessionInfo(ctx context.Context, in *SessionUpdate, opts ...grpc.CallOption) (*SessionError, error)
+	UpdateSessionInfo(ctx context.Context, in *SessionUpdate, opts ...grpc.CallOption) (*Response, error)
 }
 
 type sessionClient struct {
@@ -54,8 +54,8 @@ func (c *sessionClient) GetSessionInfo(ctx context.Context, in *SessionId, opts 
 	return out, nil
 }
 
-func (c *sessionClient) UpdateSessionInfo(ctx context.Context, in *SessionUpdate, opts ...grpc.CallOption) (*SessionError, error) {
-	out := new(SessionError)
+func (c *sessionClient) UpdateSessionInfo(ctx context.Context, in *SessionUpdate, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
 	err := c.cc.Invoke(ctx, "/puzzlesessionservice.Session/UpdateSessionInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -70,7 +70,7 @@ type SessionServer interface {
 	// generate sessionId
 	Generate(context.Context, *SessionInfo) (*SessionId, error)
 	GetSessionInfo(context.Context, *SessionId) (*SessionInfo, error)
-	UpdateSessionInfo(context.Context, *SessionUpdate) (*SessionError, error)
+	UpdateSessionInfo(context.Context, *SessionUpdate) (*Response, error)
 	mustEmbedUnimplementedSessionServer()
 }
 
@@ -84,7 +84,7 @@ func (UnimplementedSessionServer) Generate(context.Context, *SessionInfo) (*Sess
 func (UnimplementedSessionServer) GetSessionInfo(context.Context, *SessionId) (*SessionInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSessionInfo not implemented")
 }
-func (UnimplementedSessionServer) UpdateSessionInfo(context.Context, *SessionUpdate) (*SessionError, error) {
+func (UnimplementedSessionServer) UpdateSessionInfo(context.Context, *SessionUpdate) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSessionInfo not implemented")
 }
 func (UnimplementedSessionServer) mustEmbedUnimplementedSessionServer() {}
