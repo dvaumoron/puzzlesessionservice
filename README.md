@@ -1,2 +1,3 @@
 # puzzlesessionservice
-service description to interract with session
+
+[gRPC](https://grpc.io/) service description to interract with session.
